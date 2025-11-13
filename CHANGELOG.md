@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## Version 0.3.0 (2025-11-13)
 
 ### Added
 
@@ -22,6 +22,16 @@
   - Table borders use softer medium gray instead of harsh light colors
   - Table headers properly use light gray text for better visibility
   - All fixes properly scoped within `@utility prose` block in Tailwind CSS
+
+### Deployment
+
+```bash
+# Using uv (recommended)
+uvx microdocs@0.3 README.md CHANGELOG.md
+
+# Using pip
+pip install --upgrade microdocs
+```
 
 ## Version 0.2.0 (2025-11-13)
 
