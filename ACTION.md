@@ -2,8 +2,6 @@
 
 Deploy beautiful documentation to GitHub Pages with a single step.
 
-> **Note**: This action is currently in active development. Use `@v1` to get the latest features. Once stable, versioned releases (`@v1`) will be available.
-
 ## Quick Start
 
 Deploy your documentation to GitHub Pages with a single action:
