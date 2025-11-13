@@ -1,8 +1,8 @@
 ---
 name: 'Render README, CHANGELOG, etc. on GitHub Pages'
 description: >-
-  Zero-config documentation rendering. Transform README, CHANGELOG and other
-  Markdown files into beautiful single-page HTML documentation.
+  Zero-config docs. Transform README, CHANGELOG, etc. into beautiful
+  single-page HTML documentation.
 author: 'Martin Martin <martin@elephant.house>'
 branding:
   icon: 'book-open'
