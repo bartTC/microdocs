@@ -30,6 +30,6 @@ jobs:
         with:
           files: |
             README.md
-            CHANGELOG.md
             ACTION.md
+            CHANGELOG.md
           title: 'Microdocs'
