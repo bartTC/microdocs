@@ -5,20 +5,6 @@
 		"clientKind": "git",
 		"useIgnoreFile": true
 	},
-	"files": {
-		"ignoreUnknown": false
-	},
-	"overrides": [
-		{
-			"includes": ["templates/default.css", "templates/default.tailwind.css"],
-			"linter": {
-				"enabled": false
-			},
-			"formatter": {
-				"enabled": false
-			}
-		}
-	],
 	"formatter": {
 		"enabled": true
 	},
