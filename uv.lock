@@ -278,7 +278,7 @@ wheels = [
 
 [[package]]
 name = "microdocs"
-version = "0.3"
+version = "1.0"
 source = { editable = "." }
 dependencies = [
     { name = "jinja2" },

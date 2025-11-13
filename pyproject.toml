@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "microdocs"
-version = "0.3"
+version = "1.0"
 description = "Transform your Markdown files into a self-contained HTML documentation site."
 readme = "README.md"
 authors = [
@@ -12,7 +12,7 @@ authors = [
 ]
 license = "MIT"
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Environment :: Console",
     "Environment :: Web Environment",
     "Intended Audience :: Developers",

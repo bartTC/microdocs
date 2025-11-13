@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## Version 1.0.0 (2025-11-13)
+
+🎉 **First stable release!** Microdocs is now production-ready with comprehensive test coverage, CI/CD workflows, and a stable API.
 
 ### Added
 
@@ -17,6 +19,21 @@
   - `runtests.sh` - Executable script to run tests across all Python versions
   - Comprehensive testing documentation in CLAUDE.md
 - **README badges** - Added PyPI version, test status, Python version support, and license badges
+
+### Changed
+
+- **Development status** upgraded from Beta to Production/Stable
+- **Enhanced PyPI classifiers** with better categorization for documentation and text processing
+
+### Deployment
+
+```bash
+# Using uv (recommended)
+uvx microdocs@1.0 README.md CHANGELOG.md
+
+# Using pip
+pip install --upgrade microdocs
+```
 
 ## Version 0.3.0 (2025-11-13)
 

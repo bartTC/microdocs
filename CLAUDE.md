@@ -86,6 +86,58 @@ pytest --cov=microdocs
 - `.github/workflows/test.yml` - Runs tests on Python 3.11, 3.12, 3.13, 3.14
 - `.github/workflows/lint.yml` - Runs ruff check and ruff format --check
 
+### Release Process
+
+When creating a new release, follow these steps **in order**:
+
+1. **Run full test suite** - Verify everything passes before releasing
+   ```bash
+   pytest && ruff check . && ruff format --check .
+   ```
+
+2. **Update version** in `pyproject.toml`
+   - Bump version number
+   - Update development status classifier if needed (Alpha → Beta → Production/Stable)
+
+3. **Update CHANGELOG.md**
+   - Move "Unreleased" section to new version heading with date
+   - Add summary of changes (Added, Changed, Fixed, etc.)
+   - Include deployment instructions with new version number
+
+4. **Commit changes**
+   ```bash
+   git add pyproject.toml CHANGELOG.md
+   git commit -m "Release version X.Y.Z"
+   ```
+
+5. **Create git tag**
+   ```bash
+   git tag -a vX.Y.Z -m "Release vX.Y.Z: brief description"
+   ```
+
+6. **Build the package**
+   ```bash
+   uv build
+   ```
+
+7. **Publish to PyPI**
+   ```bash
+   uv publish
+   ```
+
+8. **Push changes and tags**
+   ```bash
+   git push
+   git push --tags
+   ```
+
+**Important Notes:**
+- Always run tests BEFORE building and publishing
+- Never build before creating git commit and tag
+- Always create git tag BEFORE building
+- Update CHANGELOG with actual release date
+- Include deployment instructions in CHANGELOG
+
 ## Architecture
 
 ### Core Components
