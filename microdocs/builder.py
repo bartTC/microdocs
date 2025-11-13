@@ -124,7 +124,7 @@ def build_documentation(
     """
     # Set default template if not provided
     if template_path is None:
-        template_path = Path(__file__).parent.parent / "templates" / "default.html"
+        template_path = Path(__file__).parent / "templates" / "default.html"
 
     # Load CSS file for inlining (if exists)
     # CSS file should have same name as template: default.html → default.css
