@@ -51,7 +51,7 @@ dev = [
 microdocs = "microdocs:main"
 
 [tool.hatch.build.targets.wheel]
-only-include = ["microdocs"]
+packages = ["microdocs"]
 
 [tool.uv]
 package = true
