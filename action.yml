@@ -43,6 +43,9 @@ outputs:
   output-file:
     description: 'Path to the generated HTML file'
     value: ${{ steps.build.outputs.file }}
+  page_url:
+    description: 'URL of the deployed GitHub Pages site'
+    value: ${{ steps.deploy-pages.outputs.page_url }}
 
 runs:
   using: 'composite'
