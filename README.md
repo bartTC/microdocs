@@ -1,5 +1,10 @@
 # Microdocs
 
+[![PyPI](https://img.shields.io/pypi/v/microdocs)](https://pypi.org/project/microdocs/)
+[![Test](https://github.com/bartTC/microdocs/actions/workflows/test.yml/badge.svg)](https://github.com/bartTC/microdocs/actions/workflows/test.yml)
+[![Python Version](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue)](https://pypi.org/project/microdocs/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 **Transform your Markdown files into a self-contained HTML documentation site.**
 
 Microdocs is a Python tool that converts Markdown files (like README.md and CHANGELOG.md) into a beautiful, single-page HTML documentation site with navigation, table of contents, and syntax highlighting.
