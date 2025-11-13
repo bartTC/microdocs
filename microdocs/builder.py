@@ -8,6 +8,7 @@ self-contained HTML documentation site with navigation and table of contents.
 from __future__ import annotations
 
 import html
+import re
 import sys
 from datetime import UTC, datetime
 from pathlib import Path
@@ -93,6 +94,37 @@ def convert_plain_text_to_html(text_content: str) -> str:
     return f"<div>{html_with_breaks}</div>"
 
 
+def rewrite_internal_links(html_content: str, section_ids: set[str]) -> str:
+    """
+    Rewrite links to markdown files into section navigation links.
+
+    If a link points to a file that exists as a section (e.g., CHANGELOG.md),
+    rewrite it to navigate to that section instead of loading the file.
+
+    Args:
+        html_content: HTML content with links
+        section_ids: Set of section IDs (lowercased file stems)
+
+    Returns:
+        HTML with rewritten internal links
+
+    """
+
+    def replace_link(match: re.Match[str]) -> str:
+        href = match.group(1)
+        # Check if link is to a markdown file
+        if href.endswith((".md", ".markdown")):
+            # Extract the stem (filename without extension) and lowercase it
+            link_stem = Path(href).stem.lower()
+            # If this matches a section ID, rewrite to section link
+            if link_stem in section_ids:
+                return f'href="#{link_stem}"'
+        return match.group(0)
+
+    # Match href attributes in anchor tags
+    return re.sub(r'href="([^"]+)"', replace_link, html_content)
+
+
 def build_documentation(
     input_files: Sequence[Path],
     output_path: Path,
@@ -134,6 +166,9 @@ def build_documentation(
         sys.stdout.write(f"Reading CSS from {css_path}\n")
         inlined_css = css_path.read_text(encoding="utf-8")
 
+    # First pass: collect section IDs
+    section_ids = {input_file.stem.lower() for input_file in input_files}
+
     # Process each markdown file
     converted_sections = []
     extracted_title = None
@@ -155,6 +190,9 @@ def build_documentation(
         else:
             sys.stdout.write(f"Converting {input_file.name} as plain text...\n")
             html_content = convert_plain_text_to_html(file_content)
+
+        # Rewrite internal links to point to sections instead of files
+        html_content = rewrite_internal_links(html_content, section_ids)
 
         # Build section data
         section_id = input_file.stem.lower()

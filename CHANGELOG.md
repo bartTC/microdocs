@@ -1,5 +1,16 @@
 # Changelog
 
+## Version 1.1.0 (TBD)
+
+### Added
+
+- **Internal link rewriting** - Automatically converts markdown file links to section navigation
+  - Links to files that are included as sections (e.g., `[CHANGELOG](CHANGELOG.md)`) are rewritten to section anchors (`#changelog`)
+  - Preserves external links and links to files that aren't sections
+  - Centralized hash link monitoring with Alpine.js integration
+  - Clicking any hash link now properly triggers section switching without page reloads
+  - Added 4 tests for link rewriting functionality in `test_builder.py`
+
 ## Version 1.0.0 (2025-11-13)
 
 🎉 **First stable release!** Microdocs is now production-ready with comprehensive test coverage, CI/CD workflows, and a stable API.

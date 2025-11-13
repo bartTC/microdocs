@@ -406,3 +406,92 @@ def test_build_documentation_file_not_found(temp_output_path: Path) -> None:
             input_files=[Path("/nonexistent/file.md")],
             output_path=temp_output_path,
         )
+
+
+# Tests for rewrite_internal_links
+
+
+def test_rewrite_internal_links_rewrites_section_links(tmp_path: Path) -> None:
+    """Test that links to markdown files that are sections get rewritten."""
+    readme = tmp_path / "README.md"
+    readme.write_text(
+        "# Main\n\nSee the [CHANGELOG](CHANGELOG.md) for details.",
+        encoding="utf-8",
+    )
+
+    changelog = tmp_path / "CHANGELOG.md"
+    changelog.write_text("# Changelog\n\n## v1.0", encoding="utf-8")
+
+    output = tmp_path / "output.html"
+    build_documentation(
+        input_files=[readme, changelog],
+        output_path=output,
+    )
+
+    content = output.read_text(encoding="utf-8")
+    # Link should be rewritten to section anchor
+    assert 'href="#changelog"' in content
+    # Original file link should not be present
+    assert "CHANGELOG.md" not in content or 'href="#changelog"' in content
+
+
+def test_rewrite_internal_links_preserves_external_links(tmp_path: Path) -> None:
+    """Test that external links are not rewritten."""
+    readme = tmp_path / "README.md"
+    readme.write_text(
+        "# Main\n\nVisit [GitHub](https://github.com)",
+        encoding="utf-8",
+    )
+
+    output = tmp_path / "output.html"
+    build_documentation(
+        input_files=[readme],
+        output_path=output,
+    )
+
+    content = output.read_text(encoding="utf-8")
+    # External link should remain unchanged
+    assert 'href="https://github.com"' in content
+
+
+def test_rewrite_internal_links_preserves_non_section_markdown_links(
+    tmp_path: Path,
+) -> None:
+    """Test that links to markdown files that aren't sections remain unchanged."""
+    readme = tmp_path / "README.md"
+    readme.write_text(
+        "# Main\n\nSee [other doc](other.md)",
+        encoding="utf-8",
+    )
+
+    output = tmp_path / "output.html"
+    build_documentation(
+        input_files=[readme],
+        output_path=output,
+    )
+
+    content = output.read_text(encoding="utf-8")
+    # Link to non-section file should remain as-is
+    assert 'href="other.md"' in content
+
+
+def test_rewrite_internal_links_case_insensitive(tmp_path: Path) -> None:
+    """Test that link rewriting is case-insensitive."""
+    readme = tmp_path / "README.md"
+    readme.write_text(
+        "# Main\n\nSee [Action](ACTION.md)",
+        encoding="utf-8",
+    )
+
+    action = tmp_path / "ACTION.md"
+    action.write_text("# Action\n\nDetails", encoding="utf-8")
+
+    output = tmp_path / "output.html"
+    build_documentation(
+        input_files=[readme, action],
+        output_path=output,
+    )
+
+    content = output.read_text(encoding="utf-8")
+    # Link should be rewritten to lowercase section anchor
+    assert 'href="#action"' in content
