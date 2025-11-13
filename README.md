@@ -98,7 +98,7 @@ Automatically deploy your documentation to GitHub Pages:
 
 ```yaml
 - name: Build and deploy documentation
-  uses: bartTC/microdocs@main
+  uses: bartTC/microdocs@v1
   with:
     files: |
       README.md

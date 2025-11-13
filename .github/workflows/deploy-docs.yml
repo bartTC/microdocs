@@ -26,7 +26,7 @@ jobs:
 
       - name: Build and deploy documentation
         id: deployment
-        uses: ./
+        uses: bartTC/microdocs@v1
         with:
           files: |
             README.md

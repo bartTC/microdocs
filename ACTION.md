@@ -2,7 +2,7 @@
 
 Deploy beautiful documentation to GitHub Pages with a single step.
 
-> **Note**: This action is currently in active development. Use `@main` to get the latest features. Once stable, versioned releases (`@v1`) will be available.
+> **Note**: This action is currently in active development. Use `@v1` to get the latest features. Once stable, versioned releases (`@v1`) will be available.
 
 ## Quick Start
 
@@ -31,7 +31,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Build and deploy documentation
-        uses: bartTC/microdocs@main
+        uses: bartTC/microdocs@v1
         with:
           files: |
             README.md
@@ -73,7 +73,7 @@ Your documentation will be available at `https://<username>.github.io/<repositor
 
 ```yaml
 - name: Build and deploy documentation
-  uses: bartTC/microdocs@main
+  uses: bartTC/microdocs@v1
   with:
     files: |
       README.md
@@ -103,7 +103,7 @@ To just build the documentation without deploying:
 
 ```yaml
 - name: Build documentation
-  uses: bartTC/microdocs@main
+  uses: bartTC/microdocs@v1
   with:
     files: 'README.md CHANGELOG.md'
     title: 'My Project Documentation'
@@ -117,7 +117,7 @@ Use your own HTML template:
 
 ```yaml
 - name: Build and deploy documentation
-  uses: bartTC/microdocs@main
+  uses: bartTC/microdocs@v1
   with:
     files: |
       README.md
@@ -131,7 +131,7 @@ Override the automatic repository URL:
 
 ```yaml
 - name: Build and deploy documentation
-  uses: bartTC/microdocs@main
+  uses: bartTC/microdocs@v1
   with:
     files: 'README.md'
     repo-url: 'https://github.com/myorg/myrepo'
@@ -143,7 +143,7 @@ Change where the HTML file is generated:
 
 ```yaml
 - name: Build and deploy documentation
-  uses: bartTC/microdocs@main
+  uses: bartTC/microdocs@v1
   with:
     files: 'README.md CHANGELOG.md'
     output: 'public/docs.html'
@@ -155,7 +155,7 @@ Change the directory used for deployment artifacts:
 
 ```yaml
 - name: Build and deploy documentation
-  uses: bartTC/microdocs@main
+  uses: bartTC/microdocs@v1
   with:
     files: 'README.md'
     artifact-dir: '_site'
@@ -196,7 +196,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build and deploy documentation
-        uses: bartTC/microdocs@main
+        uses: bartTC/microdocs@v1
         with:
           files: |
             README.md
