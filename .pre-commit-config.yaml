@@ -1,0 +1,55 @@
+---
+repos:
+  # General file formatting and validation
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-yaml  # Validates YAML syntax
+      - id: end-of-file-fixer  # Ensures files end with a newline
+      - id: mixed-line-ending  # Detects mixed line endings (CRLF/LF)
+      - id: trailing-whitespace  # Removes trailing whitespace
+
+  # YAML linting
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.37.1
+    hooks:
+      - id: yamllint  # Lints YAML files for style and syntax
+        args: [--strict]
+
+  # JSON Schema validation
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.35.0
+    hooks:
+      - id: check-github-workflows  # Validates GitHub Actions workflow files
+
+  # Python code formatting and linting
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.4
+    hooks:
+      - id: ruff-check  # Fast Python linter (replaces flake8, isort, etc.)
+        args: [--fix]
+      - id: ruff-format  # Fast Python formatter (replaces black)
+
+  # Django template formatting
+  - repo: https://github.com/rtts/djhtml
+    rev: '3.0.10'
+    hooks:
+      - id: djhtml  # Indents and formats Django HTML templates
+
+  # Tailwind CSS class sorting
+  - repo: https://github.com/bartTC/tailwhip
+    rev: v0.11
+    hooks:
+      - id: tailwhip  # Sorts Tailwind CSS classes in templates
+
+  # JavaScript/TypeScript formatting and linting
+  - repo: https://github.com/biomejs/pre-commit
+    rev: v2.3.5
+    hooks:
+      - id: biome-check  # Fast formatter and linter for JS/TS
+
+  # Dependency management
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.9.8
+    hooks:
+      - id: uv-lock  # Ensures uv.lock is up to date with pyproject.toml
