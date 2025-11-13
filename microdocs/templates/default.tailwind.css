@@ -108,6 +108,30 @@ html {
 	pre code {
 		@apply p-0 bg-transparent;
 	}
+
+	/* Dark mode fixes for prose typography */
+	@media (prefers-color-scheme: dark) {
+		[data-theme="dark"] & {
+			/* Fix blockquote text color - use readable light gray instead of dark blue */
+			--tw-prose-quotes: var(--color-doc-text);
+			--tw-prose-quote-borders: var(--color-doc-border);
+
+			/* Soften table borders - use medium gray instead of harsh light colors */
+			--tw-prose-th-borders: #3d444d;
+			--tw-prose-td-borders: #3d444d;
+		}
+
+		/* Ensure table headers are readable in dark mode */
+		[data-theme="dark"] & thead th {
+			color: var(--color-doc-heading);
+		}
+
+		/* Ensure blockquotes are readable in dark mode */
+		[data-theme="dark"] & blockquote {
+			color: var(--color-doc-text);
+			border-inline-start-color: var(--color-doc-border);
+		}
+	}
 }
 
 /* Pygments syntax highlighting */

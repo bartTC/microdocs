@@ -15,6 +15,14 @@
 - **Local testing workflow** - Test action locally with `act` tool
 - **Testing guide** (TESTING.md) - Complete guide for testing the action locally with `act`
 
+### Fixed
+
+- **Dark mode typography** - Improved readability in dark mode
+  - Blockquotes now use readable light gray text instead of dark blue
+  - Table borders use softer medium gray instead of harsh light colors
+  - Table headers properly use light gray text for better visibility
+  - All fixes properly scoped within `@utility prose` block in Tailwind CSS
+
 ## Version 0.2.0 (2025-11-13)
 
 ### Fixed

@@ -44,6 +44,15 @@ ruff check --fix .
 ruff format .
 ```
 
+### Styling (Tailwind CSS)
+
+**IMPORTANT**: Never edit `microdocs/templates/default.css` directly - it is auto-generated!
+
+To modify styles:
+1. Edit `microdocs/templates/default.tailwind.css` (source file)
+2. Run Tailwind CLI to compile: `npx @tailwindcss/cli@latest -i microdocs/templates/default.tailwind.css -o microdocs/templates/default.css --minify`
+3. The compiled/minified CSS will be written to `default.css`
+
 ### Testing
 ```bash
 # Run tests

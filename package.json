@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
-		"build:css": "tailwindcss -i ./templates/default.tailwind.css -o ./templates/default.css --minify"
+		"build:css": "tailwindcss -i ./microdocs/templates/default.tailwind.css -o ./microdocs/templates/default.css --minify"
 	},
 	"devDependencies": {
 		"@tailwindcss/cli": "^4.0.0",
