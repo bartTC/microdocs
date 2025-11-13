@@ -54,15 +54,37 @@ To modify styles:
 3. The compiled/minified CSS will be written to `default.css`
 
 ### Testing
+
+**Test Organization**
+- Tests are located in `microdocs/tests/`
+- Tests are organized by module type:
+  - `test_builder.py` - Low-level functions (markdown conversion, title extraction, etc.)
+  - `test_cli.py` - CLI interface functionality
+  - `test_templates.py` - Template rendering and integration
+
+**Test Style**
+- Use pytest functions, NOT TestCase classes
+- Use pytest fixtures for reusable test data
+- Focus on testing OUR code, not external libraries (e.g., don't test that markdown conversion works, test that our builder uses it correctly)
+
+**Running Tests**
 ```bash
-# Run tests
+# Run all tests
 pytest
+
+# Run tests with verbose output
+pytest -v
 
 # Run tests with coverage
 pytest --cov=microdocs
 
-# Note: No tests exist yet (no test*.py files found)
+# Run tests across all Python versions (3.11-3.14)
+./runtests.sh
 ```
+
+**CI/CD**
+- `.github/workflows/test.yml` - Runs tests on Python 3.11, 3.12, 3.13, 3.14
+- `.github/workflows/lint.yml` - Runs ruff check and ruff format --check
 
 ## Architecture
 
