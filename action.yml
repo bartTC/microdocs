@@ -1,8 +1,8 @@
 ---
-name: 'Build Markdown Documentation'
+name: 'Deploy Docs to GitHub Pages'
 description: >-
-  Generate beautiful single-page HTML documentation from Markdown files
-  using Microdocs
+  Zero-config documentation deployment. Transform Markdown files into
+  beautiful single-page HTML docs and deploy to GitHub Pages.
 author: 'Martin'
 branding:
   icon: 'book-open'
