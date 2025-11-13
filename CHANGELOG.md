@@ -1,5 +1,23 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- **Comprehensive test suite** with 57 tests covering all functionality
+  - `test_builder.py` - Tests for low-level conversion and building functions (25 tests)
+  - `test_cli.py` - Tests for CLI interface functionality (19 tests)
+  - `test_templates.py` - Tests for template rendering and integration (13 tests)
+  - Uses pytest functions with fixtures following best practices
+  - All tests pass linting with ruff
+- **Continuous Integration workflows**
+  - `.github/workflows/test.yml` - Runs tests across Python 3.11, 3.12, 3.13, 3.14
+  - `.github/workflows/lint.yml` - Runs ruff check and format verification
+- **Testing infrastructure**
+  - `runtests.sh` - Executable script to run tests across all Python versions
+  - Comprehensive testing documentation in CLAUDE.md
+- **README badges** - Added PyPI version, test status, Python version support, and license badges
+
 ## Version 0.3.0 (2025-11-13)
 
 ### Added
