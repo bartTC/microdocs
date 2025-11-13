@@ -1,7 +1,8 @@
 ---
-name: 'Microdocs'
+name: 'Build Markdown Documentation'
 description: >-
   Generate beautiful single-page HTML documentation from Markdown files
+  using Microdocs
 author: 'Martin'
 branding:
   icon: 'book-open'
