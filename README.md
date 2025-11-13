@@ -19,6 +19,15 @@ Microdocs is a Python tool that converts Markdown files (like README.md and CHAN
 - **Zero Configuration** - Works out of the box with sensible defaults
 - **Customizable** - Use your own HTML templates and CSS styles
 
+## Examples
+
+See Microdocs in action with these live documentation sites:
+
+- **Microdocs Documentation** - [barttc.github.io/microdocs](https://barttc.github.io/microdocs/)
+- **Tailwhip Documentation** - [barttc.github.io/tailwhip](https://barttc.github.io/tailwhip/)
+
+Both sites are generated from Markdown files using Microdocs with the default template.
+
 ## Installation
 
 ### Using uv (recommended)
@@ -77,6 +86,30 @@ uvx microdocs README.md CHANGELOG.md \
   --repo-url https://github.com/user/repo \
   -t templates/custom.html
 ```
+
+## GitHub Actions Deployment
+
+Microdocs includes a complete [GitHub Actions workflow example](https://github.com/bartTC/microdocs/blob/main/.github/workflows/deploy-docs.yml) for automatically deploying your documentation to GitHub Pages.
+
+### When to use GitHub Actions
+
+Use the GitHub Actions workflow when you want to:
+
+- **Automatically update documentation** - Regenerate and deploy docs on every push to main
+- **Zero-installation deployment** - Uses `uvx microdocs@latest` so no installation required
+- **Keep docs in sync** - Documentation is always up-to-date with your latest changes
+- **Free hosting** - GitHub Pages provides free hosting for your documentation site
+
+### Setup
+
+1. Copy the [workflow file](https://github.com/bartTC/microdocs/blob/main/.github/workflows/deploy-docs.yml) to `.github/workflows/deploy-docs.yml` in your repository
+2. Enable GitHub Pages in your repository settings:
+   - Go to **Settings** → **Pages**
+   - Under **Source**, select **GitHub Actions**
+   - Save
+3. Push to main branch - your documentation will be automatically deployed!
+
+Your documentation will be available at `https://<username>.github.io/<repository>/`
 
 ## Template System
 
