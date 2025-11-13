@@ -131,12 +131,20 @@ When creating a new release, follow these steps **in order**:
    git push --tags
    ```
 
+9. **Update floating major version tag** (for GitHub Action compatibility)
+   ```bash
+   # For v1.x.x releases, update the v1 tag
+   git tag -f v1 vX.Y.Z
+   git push origin v1 --force
+   ```
+
 **Important Notes:**
 - Always run tests BEFORE building and publishing
 - Never build before creating git commit and tag
 - Always create git tag BEFORE building
 - Update CHANGELOG with actual release date
 - Include deployment instructions in CHANGELOG
+- Update floating major version tag (v1, v2, etc.) after pushing tags so GitHub Actions can use `@v1` for latest v1.x release
 
 ## Architecture
 
