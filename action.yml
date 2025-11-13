@@ -1,9 +1,9 @@
 ---
-name: 'Deploy Docs to GitHub Pages'
+name: 'Render README, CHANGELOG, etc. on GitHub Pages'
 description: >-
-  Zero-config documentation deployment. Transform Markdown files into
-  beautiful single-page HTML docs and deploy to GitHub Pages.
-author: 'Martin'
+  Zero-config documentation rendering. Transform README, CHANGELOG and other
+  Markdown files into beautiful single-page HTML documentation.
+author: 'Martin Martin <martin@elephant.house>'
 branding:
   icon: 'book-open'
   color: 'blue'
