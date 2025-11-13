@@ -1,5 +1,42 @@
 # Changelog
 
+## Version 0.2.0 (2025-11-13)
+
+### Fixed
+
+- **Package distribution** - Templates are now properly included in the package
+  - Moved `templates/` directory into `microdocs/templates/`
+  - Fixed template path resolution in builder
+  - `uvx microdocs` now works correctly without local installation
+
+### Changed
+
+- **Typography improvements**
+  - Updated to Roboto Slab for headlines (professional serif font)
+  - Roboto for body text (clean and readable)
+  - IBM Plex Mono for code (excellent readability and character distinction)
+- **Code formatting** - Removed decorative backticks from inline code tags for cleaner appearance
+- **Output handling** - Changed from `print()` to `sys.stdout.write()` for better stream control
+
+### Added
+
+- **GitHub Actions workflow** for automatic deployment to GitHub Pages
+  - Complete example showing how to use Microdocs in CI/CD
+  - Comprehensive documentation and comments
+  - Uses `uvx microdocs@latest` for zero-installation deployment
+  - Step-by-step setup instructions included
+  - Demonstrates best practices for deploying documentation
+
+### Deployment
+
+```bash
+# Using uv (recommended)
+uvx microdocs@0.2 README.md CHANGELOG.md
+
+# Using pip
+pip install --upgrade microdocs
+```
+
 ## Version 0.1.0 (2025-11-13)
 
 Initial release of Microdocs - a Python tool that transforms Markdown files into beautiful, self-contained HTML documentation sites.
