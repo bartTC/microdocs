@@ -87,29 +87,21 @@ uvx microdocs README.md CHANGELOG.md \
   -t templates/custom.html
 ```
 
-## GitHub Actions Deployment
+## GitHub Actions
 
-Microdocs includes a complete [GitHub Actions workflow example](https://github.com/bartTC/microdocs/blob/main/.github/workflows/deploy-docs.yml) for automatically deploying your documentation to GitHub Pages.
+Automatically deploy your documentation to GitHub Pages:
 
-### When to use GitHub Actions
+```yaml
+- name: Build and deploy documentation
+  uses: bartTC/microdocs@main
+  with:
+    files: |
+      README.md
+      CHANGELOG.md
+    title: 'My Project'
+```
 
-Use the GitHub Actions workflow when you want to:
-
-- **Automatically update documentation** - Regenerate and deploy docs on every push to main
-- **Zero-installation deployment** - Uses `uvx microdocs@latest` so no installation required
-- **Keep docs in sync** - Documentation is always up-to-date with your latest changes
-- **Free hosting** - GitHub Pages provides free hosting for your documentation site
-
-### Setup
-
-1. Copy the [workflow file](https://github.com/bartTC/microdocs/blob/main/.github/workflows/deploy-docs.yml) to `.github/workflows/deploy-docs.yml` in your repository
-2. Enable GitHub Pages in your repository settings:
-   - Go to **Settings** → **Pages**
-   - Under **Source**, select **GitHub Actions**
-   - Save
-3. Push to main branch - your documentation will be automatically deployed!
-
-Your documentation will be available at `https://<username>.github.io/<repository>/`
+**[See full GitHub Actions documentation →](ACTION.md)**
 
 ## Template System
 

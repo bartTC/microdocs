@@ -1,0 +1,113 @@
+---
+name: 'Microdocs'
+description: >-
+  Generate beautiful single-page HTML documentation from Markdown files
+author: 'Martin'
+branding:
+  icon: 'book-open'
+  color: 'blue'
+
+inputs:
+  files:
+    description: 'Markdown files to process (one per line or space-separated)'
+    required: true
+  title:
+    description: 'Documentation title (defaults to first H1 in first file)'
+    required: false
+    default: ''
+  output:
+    description: 'Output HTML file path'
+    required: false
+    default: 'index.html'
+  template:
+    description: 'Path to custom HTML template file'
+    required: false
+    default: ''
+  repo-url:
+    description: 'Repository URL to include in documentation'
+    required: false
+    default: ''
+  deploy:
+    description: >-
+      Whether to automatically deploy to GitHub Pages
+      (requires pages permissions)
+    required: false
+    default: 'true'
+  artifact-dir:
+    description: >-
+      Directory to prepare for deployment (used when deploy is true)
+    required: false
+    default: 'dist'
+
+outputs:
+  output-file:
+    description: 'Path to the generated HTML file'
+    value: ${{ steps.build.outputs.file }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install uv
+      shell: bash
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+    - name: Build documentation
+      id: build
+      shell: bash
+      run: |
+        # Prepare output directory
+        if [ "${{ inputs.deploy }}" = "true" ]; then
+          mkdir -p "${{ inputs.artifact-dir }}"
+          output_path="${{ inputs.artifact-dir }}/index.html"
+        else
+          output_path="${{ inputs.output }}"
+        fi
+
+        # Build the command
+        cmd="uvx --from microdocs microdocs"
+
+        # Add files
+        cmd="$cmd ${{ inputs.files }}"
+
+        # Add output path
+        cmd="$cmd --output $output_path"
+
+        # Add optional arguments
+        if [ -n "${{ inputs.title }}" ]; then
+          cmd="$cmd --title '${{ inputs.title }}'"
+        fi
+
+        if [ -n "${{ inputs.template }}" ]; then
+          cmd="$cmd --template ${{ inputs.template }}"
+        fi
+
+        # Use provided repo-url or default to GitHub repository
+        repo_url="${{ inputs.repo-url }}"
+        if [ -z "$repo_url" ]; then
+          repo_url="${{ github.server_url }}/${{ github.repository }}"
+        fi
+        cmd="$cmd --repo-url $repo_url"
+
+        # Execute
+        echo "Running: $cmd"
+        eval $cmd
+
+        # Set output
+        echo "file=$output_path" >> $GITHUB_OUTPUT
+
+    - name: Setup Pages
+      if: inputs.deploy == 'true'
+      uses: actions/configure-pages@v4
+
+    - name: Upload artifact
+      if: inputs.deploy == 'true'
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: ${{ inputs.artifact-dir }}
+
+    - name: Deploy to GitHub Pages
+      if: inputs.deploy == 'true'
+      id: deployment
+      uses: actions/deploy-pages@v4

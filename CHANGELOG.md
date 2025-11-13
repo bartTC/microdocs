@@ -1,5 +1,20 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- **GitHub Action** for one-step documentation deployment
+  - Composite action that builds and deploys documentation to GitHub Pages
+  - Auto-detects repository URL from GitHub context
+  - Configurable inputs: files, title, output, template, repo-url, deploy, artifact-dir
+  - Deploy enabled by default for seamless GitHub Pages deployment
+  - Can be used for build-only workflows with `deploy: false`
+  - Uses `uvx` for zero-installation execution
+  - Comprehensive documentation in ACTION.md
+- **Local testing workflow** - Test action locally with `act` tool
+- **Testing guide** (TESTING.md) - Complete guide for testing the action locally with `act`
+
 ## Version 0.2.0 (2025-11-13)
 
 ### Fixed

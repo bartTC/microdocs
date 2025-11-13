@@ -1,0 +1,34 @@
+---
+name: Test Action Locally
+
+"on":
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test-build-only:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Test build without deployment
+        uses: ./
+        with:
+          files: |
+            README.md
+            ACTION.md
+            CHANGELOG.md
+          title: 'Microdocs Test'
+          deploy: false
+          output: 'test-output.html'
+
+      - name: Verify output
+        run: |
+          if [ -f "test-output.html" ]; then
+            echo "✅ Output file created successfully"
+            ls -lh test-output.html
+          else
+            echo "❌ Output file not found"
+            exit 1
+          fi
