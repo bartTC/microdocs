@@ -2,8 +2,25 @@
 
 ## Unreleased
 
+### Added
+
+- **Custom footer text** - New `--footer` / `-f` CLI option
+  - Allows setting custom footer text instead of automatic build timestamp
+  - Example: `microdocs README.md --footer "v1.1 2025-01-01"`
+  - Falls back to timestamp if not provided
+
 ### Changed
 
+- **Markdown rendering improvements** - Enhanced markdown processing with GitHub-flavored features
+  - Added `mdx-truly-sane-lists` extension for proper nested list rendering with 2-space indentation
+  - Lists now render with correct `<ul>` nesting instead of flattening all items into a single list
+  - Fixes CHANGELOG-style formatting where sub-items appear under bold parent items
+  - Added `pymdown-extensions` for GitHub-flavored markdown support:
+    - Auto-linking URLs without explicit markdown syntax
+    - Strikethrough text with `~~text~~`
+    - Task lists with `- [ ]` and `- [x]` checkboxes
+    - Emoji support with `:emoji:` shortcodes
+    - Better code fences and emphasis handling
 - **Dark mode styling improvements** - Refactored template styling for better dark mode support
   - Replaced custom `--color-doc-*` CSS variables with Tailwind's standard color system
   - Now using `dark:prose-invert` for automatic dark mode typography from `@tailwindcss/typography`
@@ -11,9 +28,6 @@
   - Fixed blockquotes and table headers appearing too dark in dark mode
   - All colors now use explicit `dark:` variants (e.g., `text-gray-900 dark:text-gray-100`)
   - Code block backgrounds improved: `bg-gray-50 dark:bg-gray-800`
-
-### Changed
-
 - **Template build system** - Complete redesign using Vite
   - Templates are now built from source files in `templates_src/` to single-file outputs in `microdocs/templates/`
   - Vite automatically discovers and builds all template directories

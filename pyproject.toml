@@ -36,6 +36,8 @@ requires-python = ">=3.11"
 dependencies = [
     "jinja2>=3.1.6",
     "markdown>=3.10",
+    "mdx-truly-sane-lists>=1.3",
+    "pymdown-extensions>=10.0",
     "typer>=0.20.0",
 ]
 
@@ -86,6 +88,7 @@ lint.ignore = [
     "ERA001", # Found commented-out code
     "FBT", # Flake Boolean Trap (don't use arg=True in functions)
     "FIX", # Line contains TODO/FIXME. Consider resolving.
+    "PLR0913", # Too many arguments in function definition
 
 ]
 

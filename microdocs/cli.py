@@ -92,6 +92,14 @@ def build(
             help="Documentation title (falls back to first H1 in first file)",
         ),
     ] = None,
+    footer: Annotated[
+        str | None,
+        typer.Option(
+            "--footer",
+            "-f",
+            help="Custom footer text (defaults to build timestamp)",
+        ),
+    ] = None,
 ) -> None:
     """
     Build HTML documentation from Markdown files.
@@ -103,6 +111,7 @@ def build(
         microdocs README.md -t /path/to/custom-template.html
         microdocs README.md -r https://github.com/user/repo
         microdocs README.md --title "My Project"
+        microdocs README.md --footer "v1.1 2025-01-01"
 
     """
     build_documentation(
@@ -111,6 +120,7 @@ def build(
         template_path=resolve_template_path(template),
         repo_url=repo_url,
         title=title,
+        footer=footer,
     )
 
 

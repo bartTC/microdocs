@@ -137,12 +137,12 @@
           id="{{ section.id }}"
           class="flex gap-8"
         >
-        <!-- Main Documentation Content -->
+          <!-- Main Documentation Content -->
           <article class="prose flex-1 min-w-0 dark:prose-invert">
             {{ section.html|safe }}
           </article>
 
-        <!-- Table of Contents Sidebar (hidden on mobile) -->
+          <!-- Table of Contents Sidebar (hidden on mobile) -->
           <aside
             class="hidden shrink-0 w-56 lg:block"
             x-show="activeSection === '{{ section.id }}'"
@@ -169,7 +169,7 @@
             </svg>
             <span>Made with Microdocs</span>
           </a>
-          <span>{{ build_timestamp }}</span>
+          <span class="text-gray-400 dark:text-gray-600">{{ build_timestamp }}</span>
         </div>
       </div>
     </footer>

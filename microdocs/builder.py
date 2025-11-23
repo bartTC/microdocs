@@ -16,6 +16,7 @@ from typing import TYPE_CHECKING
 
 import markdown
 from jinja2 import Template
+from pymdownx import emoji
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
@@ -36,17 +37,38 @@ def convert_markdown_to_html(md_content: str) -> tuple[str, markdown.Markdown]:
     """
     md = markdown.Markdown(
         extensions=[
-            "extra",
-            "codehilite",
-            "fenced_code",
-            "tables",
+            "extra",  # Includes: fenced_code, tables, attr_list, def_list, abbr, footnotes
             "toc",
+            "mdx_truly_sane_lists",
+            # GitHub-flavored markdown features
+            "pymdownx.highlight",  # Syntax highlighting (replaces codehilite)
+            "pymdownx.superfences",  # Better code fences (replaces fenced_code)
+            "pymdownx.magiclink",  # Auto-link URLs
+            "pymdownx.betterem",  # Better emphasis handling
+            "pymdownx.tilde",  # ~~strikethrough~~
+            "pymdownx.emoji",  # :emoji: support
+            "pymdownx.tasklist",  # - [ ] task lists
         ],
         extension_configs={
-            "codehilite": {
+            "mdx_truly_sane_lists": {
+                "nested_indent": 2,
+                "truly_sane": True,
+            },
+            "pymdownx.highlight": {
                 "css_class": "highlight",
                 "linenums": False,
-            }
+            },
+            "pymdownx.magiclink": {
+                "repo_url_shorthand": True,
+                "social_url_shorthand": True,
+            },
+            "pymdownx.emoji": {
+                "emoji_index": emoji.twemoji,
+                "emoji_generator": emoji.to_alt,
+            },
+            "pymdownx.tasklist": {
+                "custom_checkbox": True,
+            },
         },
     )
     html = md.convert(md_content)
@@ -132,6 +154,7 @@ def build_documentation(
     *,
     repo_url: str | None = None,
     title: str | None = None,
+    footer: str | None = None,
 ) -> None:
     """
     Build the documentation HTML file from input files.
@@ -148,6 +171,7 @@ def build_documentation(
         template_path: Optional custom HTML template. Defaults to built-in template.
         repo_url: Optional repository URL to link in navigation
         title: Optional documentation title. Falls back to first H1 in first file.
+        footer: Optional custom footer text. Defaults to build timestamp.
 
     Raises:
         FileNotFoundError: If input files or template don't exist
@@ -202,8 +226,10 @@ def build_documentation(
     # Use provided title, or fall back to extracted title, or use default
     final_title = title or extracted_title or "Documentation"
 
-    # Generate timestamp
-    build_timestamp = datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
+    # Use custom footer text or generate timestamp
+    build_timestamp = (
+        footer or f"Generated: {datetime.now(UTC).strftime('%Y-%m-%d %H:%M:%S UTC')}"
+    )
 
     # ========== Load and render template ==========
     sys.stdout.write(f"Reading template from {template_path}\n")
