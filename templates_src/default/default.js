@@ -87,6 +87,46 @@ const MicrodocsApp = {
     this.initTocForSection(this.initialSection);
   },
 
+  setupImageRows() {
+    const paragraphs = document.querySelectorAll('p');
+    paragraphs.forEach(p => {
+      // Check if p contains only whitespace text nodes
+      const hasText = Array.from(p.childNodes).some(node =>
+        node.nodeType === Node.TEXT_NODE && node.textContent.trim().length > 0
+      );
+      if (hasText) return;
+
+      // Check if all children are 'a' tags
+      const children = Array.from(p.children);
+      if (children.length === 0) return;
+
+      const allLinks = children.every(child => child.tagName.toLowerCase() === 'a');
+      if (!allLinks) return;
+
+      // Check if all 'a' tags contain only 'img' or 'svg'
+      const validLinks = children.every(link => {
+        // Check if link contains text
+        const linkHasText = Array.from(link.childNodes).some(node =>
+          node.nodeType === Node.TEXT_NODE && node.textContent.trim().length > 0
+        );
+        if (linkHasText) return false;
+
+        const linkChildren = Array.from(link.children);
+        if (linkChildren.length === 0) return false;
+
+        // All children must be img or svg
+        return linkChildren.every(child => {
+            const tagName = child.tagName.toLowerCase();
+            return tagName === 'img' || tagName === 'svg';
+        });
+      });
+
+      if (validLinks) {
+        p.classList.add('image-row');
+      }
+    });
+  },
+
   init(alpineContext) {
     this.setupSectionWatcher(alpineContext.$watch, alpineContext.activeSection);
     this.setupThemeWatcher(alpineContext.$watch, alpineContext.theme);
@@ -94,6 +134,7 @@ const MicrodocsApp = {
       () => alpineContext.activeSection,
       (section) => { alpineContext.activeSection = section; }
     );
+    this.setupImageRows();
   }
 };
 
@@ -102,4 +143,5 @@ window.MicrodocsApp = MicrodocsApp;
 
 document.addEventListener('DOMContentLoaded', () => {
   MicrodocsApp.setupTocbot();
+  MicrodocsApp.setupImageRows();
 });

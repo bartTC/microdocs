@@ -43,6 +43,10 @@
   - Minifies output with Terser
 - **Package build configuration** - Excluded development files from PyPI distribution
   - Excludes: `playwright/`, `templates_src/`, `node_modules/`, config files
+- **Image Row Detection** - Automatically detects and styles paragraphs containing only linked images
+  - Applies `.image-row` class to paragraphs containing only linked images or SVGs
+  - Supports multiple images per link (e.g. for complex badges)
+  - Ensures proper alignment and spacing for badge rows
 
 ### Removed
 
