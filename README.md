@@ -110,52 +110,24 @@ Automatically deploy your documentation to GitHub Pages:
 
 ## Template System
 
-Microdocs uses Jinja2 templates. The default template includes:
+Microdocs uses Jinja2 templates with Vite-based builds. The default template includes:
 
 - **Responsive Layout** - Two-column design with main content and TOC sidebar
 - **Page Navigation** - Tab-like navigation between sections
 - **Sticky TOC** - Table of contents that follows you as you scroll
-- **Dark Mode Ready** - Styles work well in light and dark themes
+- **Dark Mode Ready** - Automatic theme detection with manual toggle
 
-### Template Variables
+### Using Custom Templates
 
-Your custom templates have access to:
+```bash
+# Use built-in template by name
+uvx microdocs README.md -t default
 
-- `{{ title }}` - Document title
-- `{{ sections }}` - List of sections with:
-  - `id` - Section identifier (from filename)
-  - `name` - Section display name
-  - `html` - Converted HTML content
-- `{{ inlined_css }}` - CSS content from companion `.css` file
-- `{{ repo_url }}` - Repository URL (if provided)
-- `{{ build_timestamp }}` - Build timestamp in UTC format
-
-### Creating Custom Templates
-
-1. Create an HTML file with Jinja2 template syntax
-2. Optionally create a companion CSS file (same name with `.css` extension)
-3. Use it with the `--template` option
-
-Example minimal template:
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ title }}</title>
-    <style>{{ inlined_css }}</style>
-</head>
-<body>
-    <h1>{{ title }}</h1>
-    {% for section in sections %}
-        <section id="{{ section.id }}">
-            <h2>{{ section.name }}</h2>
-            {{ section.html|safe }}
-        </section>
-    {% endfor %}
-</body>
-</html>
+# Use custom template file
+uvx microdocs README.md -t /path/to/custom-template.html
 ```
+
+**[See full template development guide →](templates_src/TEMPLATES.md)**
 
 ## File Support
 
