@@ -19,11 +19,11 @@
  * Base Styles
  * -------------------------------------------------------------------------- */
 
+/* Account for sticky header when scrolling to anchors */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 96px; /* Match TOC sidebar top-24 (6rem) */
+  scroll-padding-top: 86px;
 }
-
 
 /* Show linked images side by side (typically badges) */
 .image-row {

@@ -50,4 +50,31 @@ test.describe('default template microdocs output', () => {
     await expect(page.locator('section#guide')).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Usage Guide' })).toBeVisible();
   });
+
+  test('TOC links navigate within the current section, not across sections', async ({ page }) => {
+    // Navigate to GUIDE section
+    await page.getByRole('button', { name: 'GUIDE' }).click();
+    await expect(page.locator('section#guide')).toBeVisible();
+
+    // Click the "Deep Dive" TOC link in GUIDE section
+    const deepDiveTocLink = page.locator('.toc-guide .toc-link', { hasText: 'Deep Dive' });
+    await deepDiveTocLink.click();
+
+    // Should still be in GUIDE section, not README
+    await expect(page.locator('section#guide')).toBeVisible();
+    await expect(page.locator('section#readme')).toBeHidden();
+
+    // Verify the URL hash changed to guide-deep-dive (not readme-deep-dive)
+    // This proves it navigated to GUIDE's heading, not README's heading
+    await expect(page).toHaveURL(/#guide-deep-dive$/);
+
+    // Verify the GUIDE's Deep Dive heading is scrolled into view
+    // This is the key test - correct heading should be visible
+    const guideDeepDive = page.locator('section#guide h2#guide-deep-dive');
+    await expect(guideDeepDive).toBeInViewport();
+
+    // Verify README's Deep Dive is NOT in viewport (would be if navigation was wrong)
+    const readmeDeepDive = page.locator('section#readme h2#readme-deep-dive');
+    await expect(readmeDeepDive).not.toBeInViewport();
+  });
 });

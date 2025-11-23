@@ -9,6 +9,19 @@
   - Example: `microdocs README.md --footer "v1.1 2025-01-01"`
   - Falls back to timestamp if not provided
 
+### Fixed
+
+- **TOC deep linking across sections** - Fixed table of contents links navigating to wrong section
+  - Heading IDs are now prefixed with section name (e.g., `readme-deep-dive`, `guide-deep-dive`)
+  - Prevents TOC links from jumping to identically-named headings in other sections
+  - Added custom `slugify` function to markdown `toc` extension for ID prefixing
+  - Added Playwright test to verify TOC navigation stays within correct section
+- **Sticky header overlap** - Fixed headings appearing under sticky navigation when scrolling via TOC
+  - Added `scroll-padding-top: 86px` to CSS for proper anchor positioning
+  - Added `scroll-behavior: smooth` for smooth scrolling
+  - Configured Tocbot with `headingsOffset: 86` for accurate scroll spy detection
+  - Set `scrollSmooth: false` to let browser handle native scrolling behavior
+
 ### Changed
 
 - **Template typography** - Updated default template fonts

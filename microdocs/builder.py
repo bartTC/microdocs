@@ -16,18 +16,22 @@ from typing import TYPE_CHECKING
 
 import markdown
 from jinja2 import Template
+from markdown.extensions.toc import slugify
 from pymdownx import emoji
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
 
 
-def convert_markdown_to_html(md_content: str) -> tuple[str, markdown.Markdown]:
+def convert_markdown_to_html(
+    md_content: str, *, section_id: str | None = None
+) -> tuple[str, markdown.Markdown]:
     """
     Convert markdown content to HTML with syntax highlighting and extensions.
 
     Args:
         md_content: Raw markdown content as string
+        section_id: Optional section ID to prefix heading IDs (e.g., "readme", "changelog")
 
     Returns:
         Tuple containing:
@@ -35,6 +39,43 @@ def convert_markdown_to_html(md_content: str) -> tuple[str, markdown.Markdown]:
             - Markdown instance with parsed metadata (toc_tokens, etc.)
 
     """
+
+    # Create custom slugify function that prefixes IDs with section_id
+    def slugify_with_prefix(value: str, separator: str) -> str:
+        """Slugify heading text with optional section prefix."""
+        slug = slugify(value, separator)
+        if section_id:
+            return f"{section_id}-{slug}"
+        return slug
+
+    extension_configs = {
+        "mdx_truly_sane_lists": {
+            "nested_indent": 2,
+            "truly_sane": True,
+        },
+        "pymdownx.highlight": {
+            "css_class": "highlight",
+            "linenums": False,
+        },
+        "pymdownx.magiclink": {
+            "repo_url_shorthand": True,
+            "social_url_shorthand": True,
+        },
+        "pymdownx.emoji": {
+            "emoji_index": emoji.twemoji,
+            "emoji_generator": emoji.to_alt,
+        },
+        "pymdownx.tasklist": {
+            "custom_checkbox": True,
+        },
+    }
+
+    # Add toc config with custom slugify if section_id is provided
+    if section_id:
+        extension_configs["toc"] = {
+            "slugify": slugify_with_prefix,
+        }
+
     md = markdown.Markdown(
         extensions=[
             "extra",  # Includes: fenced_code, tables, attr_list, def_list, abbr, footnotes
@@ -49,27 +90,7 @@ def convert_markdown_to_html(md_content: str) -> tuple[str, markdown.Markdown]:
             "pymdownx.emoji",  # :emoji: support
             "pymdownx.tasklist",  # - [ ] task lists
         ],
-        extension_configs={
-            "mdx_truly_sane_lists": {
-                "nested_indent": 2,
-                "truly_sane": True,
-            },
-            "pymdownx.highlight": {
-                "css_class": "highlight",
-                "linenums": False,
-            },
-            "pymdownx.magiclink": {
-                "repo_url_shorthand": True,
-                "social_url_shorthand": True,
-            },
-            "pymdownx.emoji": {
-                "emoji_index": emoji.twemoji,
-                "emoji_generator": emoji.to_alt,
-            },
-            "pymdownx.tasklist": {
-                "custom_checkbox": True,
-            },
-        },
+        extension_configs=extension_configs,
     )
     html = md.convert(md_content)
     return html, md
@@ -195,12 +216,17 @@ def build_documentation(
         sys.stdout.write(f"Reading {input_file}\n")
         file_content = input_file.read_text(encoding="utf-8")
 
+        # Build section ID early so we can pass it to markdown conversion
+        section_id = input_file.stem.lower()
+
         # Check if file is markdown or plain text
         is_markdown = input_file.suffix.lower() in {".md", ".markdown"}
 
         if is_markdown:
             sys.stdout.write(f"Converting {input_file.name} to HTML...\n")
-            html_content, md_instance = convert_markdown_to_html(file_content)
+            html_content, md_instance = convert_markdown_to_html(
+                file_content, section_id=section_id
+            )
 
             # Extract title from first file only (if not provided)
             if extracted_title is None:
@@ -213,7 +239,6 @@ def build_documentation(
         html_content = rewrite_internal_links(html_content, section_ids)
 
         # Build section data
-        section_id = input_file.stem.lower()
         converted_sections.append(
             {
                 "id": section_id,

@@ -104,7 +104,9 @@ const MicrodocsApp = {
       contentSelector: `#${sectionId} article`,
       headingSelector: 'h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]',
       hasInnerContainers: true,
-      scrollSmooth: false, // Let browser handle smooth scrolling
+      scrollSmooth: false, // Let browser handle scrolling with scroll-padding-top
+      headingsOffset: 86, // Offset for scroll spy detection (matches scroll-padding-top)
+      scrollSmoothOffset: -86, // Offset when Tocbot does scroll (shouldn't happen with scrollSmooth: false)
       positionFixedSelector: '.sticky',
       linkClass: 'toc-link',
       activeLinkClass: 'is-active-link',
