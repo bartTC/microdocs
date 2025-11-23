@@ -22,17 +22,17 @@
     <link rel="stylesheet" href="./default.css">
   </head>
   <body
-    class="font-sans text-doc-text antialiased bg-doc-bg"
+    class="font-sans text-gray-900 antialiased bg-white dark:text-gray-100 dark:bg-gray-900"
     x-data="MicrodocsApp.getInitialData()"
     x-init="MicrodocsApp.init($data)"
   >
     <!-- Header -->
-    <header class="z-50 sticky top-0 bg-doc-bg border-b border-doc-border">
+    <header class="z-50 sticky top-0 bg-white border-b border-gray-300 dark:bg-gray-950 dark:border-gray-700">
       <div class="max-w-5xl mx-auto px-4 py-3 sm:px-6 sm:py-4">
         <!-- Desktop Layout -->
         <div class="hidden sm:flex sm:gap-8 sm:items-center">
           <!-- Logo/Title -->
-          <h1 class="font-heading font-semibold text-doc-heading text-xl">
+          <h1 class="font-heading font-semibold text-xl text-gray-900 dark:text-gray-50">
             <a href="#{{ sections[0].id }}" class="cursor-pointer">{{ title }}</a>
           </h1>
 
@@ -43,8 +43,8 @@
                 <li>
                   <button
                     @click="activeSection = '{{ section.id }}'"
-                    :class="activeSection === '{{ section.id }}' ? 'font-semibold text-doc-heading' : 'text-doc-muted'"
-                    class="px-3 py-1 text-sm whitespace-nowrap transition-colors cursor-pointer hover:text-doc-heading"
+                    :class="activeSection === '{{ section.id }}' ? 'font-semibold text-gray-900 dark:text-gray-50' : 'text-gray-600 dark:text-gray-400'"
+                    class="px-3 py-1 text-sm whitespace-nowrap transition-colors cursor-pointer dark:hover:text-gray-50 hover:text-gray-900"
                   >
                     {{ section.name }}
                   </button>
@@ -56,7 +56,7 @@
           <!-- Action Buttons -->
           <div class="flex shrink-0 gap-3 items-center">
             <!-- Theme Toggle -->
-            <button @click="theme = theme === 'light' ? 'dark' : 'light'" class="text-doc-muted transition-colors hover:text-doc-heading" title="Toggle theme">
+            <button @click="theme = theme === 'light' ? 'dark' : 'light'" class="text-gray-600 transition-colors dark:text-gray-400 dark:hover:text-gray-50 hover:text-gray-900" title="Toggle theme">
               <svg x-show="theme === 'light'" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
               </svg>
@@ -67,7 +67,7 @@
 
             <!-- Repository Link -->
             {% if repo_url %}
-              <a href="{{ repo_url }}" target="_blank" rel="noopener noreferrer" class="text-doc-muted transition-colors hover:text-doc-heading" title="Repository">
+              <a href="{{ repo_url }}" target="_blank" rel="noopener noreferrer" class="text-gray-600 transition-colors dark:text-gray-400 dark:hover:text-gray-50 hover:text-gray-900" title="Repository">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
                 </svg>
@@ -80,13 +80,13 @@
         <div class="sm:hidden">
           <!-- Top Row: Title and Icons -->
           <div class="flex gap-4 items-center justify-between mb-3">
-            <h1 class="font-heading font-semibold text-doc-heading text-lg">
+            <h1 class="font-heading font-semibold text-lg text-gray-900 dark:text-gray-50">
               <a href="#{{ sections[0].id }}" class="cursor-pointer">{{ title }}</a>
             </h1>
 
             <div class="flex shrink-0 gap-3 items-center">
               <!-- Theme Toggle -->
-              <button @click="theme = theme === 'light' ? 'dark' : 'light'" class="p-1 text-doc-muted transition-colors hover:text-doc-heading" title="Toggle theme">
+              <button @click="theme = theme === 'light' ? 'dark' : 'light'" class="p-1 text-gray-600 transition-colors dark:text-gray-400 dark:hover:text-gray-50 hover:text-gray-900" title="Toggle theme">
                 <svg x-show="theme === 'light'" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
                 </svg>
@@ -97,7 +97,7 @@
 
               <!-- Repository Link -->
               {% if repo_url %}
-                <a href="{{ repo_url }}" target="_blank" rel="noopener noreferrer" class="p-1 text-doc-muted transition-colors hover:text-doc-heading" title="Repository">
+                <a href="{{ repo_url }}" target="_blank" rel="noopener noreferrer" class="p-1 text-gray-600 transition-colors dark:text-gray-400 dark:hover:text-gray-50 hover:text-gray-900" title="Repository">
                   <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
                   </svg>
@@ -113,8 +113,8 @@
                 <li class="shrink-0">
                   <button
                     @click="activeSection = '{{ section.id }}'"
-                    :class="activeSection === '{{ section.id }}' ? 'font-semibold text-doc-heading bg-doc-border/20' : 'text-doc-muted'"
-                    class="px-4 py-2 text-sm whitespace-nowrap rounded-md transition-colors cursor-pointer hover:text-doc-heading"
+                    :class="activeSection === '{{ section.id }}' ? 'font-semibold text-gray-900 dark:text-gray-50 bg-gray-300/20 dark:bg-gray-700/20' : 'text-gray-600 dark:text-gray-400'"
+                    class="px-4 py-2 text-sm whitespace-nowrap rounded-md transition-colors cursor-pointer dark:hover:text-gray-50 hover:text-gray-900"
                   >
                     {{ section.name }}
                   </button>
@@ -138,7 +138,7 @@
           class="flex gap-8"
         >
         <!-- Main Documentation Content -->
-          <article class="prose flex-1 min-w-0">
+          <article class="prose flex-1 min-w-0 dark:prose-invert">
             {{ section.html|safe }}
           </article>
 
@@ -148,7 +148,7 @@
             x-show="activeSection === '{{ section.id }}'"
           >
             <nav class="sticky top-24">
-              <h3 class="uppercase mb-3 font-semibold text-doc-muted text-xs tracking-wider">
+              <h3 class="uppercase mb-3 font-semibold text-xs text-gray-600 tracking-wider dark:text-gray-400">
                 On this page
               </h3>
               <!-- Tocbot will populate this -->
@@ -160,10 +160,10 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-doc-bg border-doc-border border-t">
+    <footer class="bg-white border-t border-gray-300 dark:bg-gray-950 dark:border-gray-700">
       <div class="max-w-5xl mx-auto px-4 py-6 sm:px-6">
-        <div class="flex flex-col gap-2 items-center justify-between text-doc-muted text-sm sm:flex-row">
-          <a href="https://github.com/bartTC/microdocs" target="_blank" rel="noopener noreferrer" class="flex gap-2 items-center transition-colors hover:text-doc-heading">
+        <div class="flex flex-col gap-2 items-center justify-between text-sm text-gray-600 dark:text-gray-400 sm:flex-row">
+          <a href="https://github.com/bartTC/microdocs" target="_blank" rel="noopener noreferrer" class="flex gap-2 items-center transition-colors dark:hover:text-gray-50 hover:text-gray-900">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
             </svg>

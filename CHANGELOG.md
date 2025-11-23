@@ -4,6 +4,16 @@
 
 ### Changed
 
+- **Dark mode styling improvements** - Refactored template styling for better dark mode support
+  - Replaced custom `--color-doc-*` CSS variables with Tailwind's standard color system
+  - Now using `dark:prose-invert` for automatic dark mode typography from `@tailwindcss/typography`
+  - Simplified CSS by ~70 lines while maintaining full dark mode compatibility
+  - Fixed blockquotes and table headers appearing too dark in dark mode
+  - All colors now use explicit `dark:` variants (e.g., `text-gray-900 dark:text-gray-100`)
+  - Code block backgrounds improved: `bg-gray-50 dark:bg-gray-800`
+
+### Changed
+
 - **Template build system** - Complete redesign using Vite
   - Templates are now built from source files in `templates_src/` to single-file outputs in `microdocs/templates/`
   - Vite automatically discovers and builds all template directories
