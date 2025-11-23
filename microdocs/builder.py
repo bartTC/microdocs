@@ -154,22 +154,16 @@ def build_documentation(
         OSError: If unable to write output file
 
     """
+    # ========== Setup ==========
     # Set default template if not provided
     if template_path is None:
-        template_path = Path(__file__).parent / "templates" / "default.html"
+        template_path = Path(__file__).parent / "templates" / "default" / "default.html"
 
-    # Load CSS file for inlining (if exists)
-    # CSS file should have same name as template: default.html → default.css
-    css_path = template_path.with_suffix(".css")
-    inlined_css = ""
-    if css_path.exists():
-        sys.stdout.write(f"Reading CSS from {css_path}\n")
-        inlined_css = css_path.read_text(encoding="utf-8")
-
-    # First pass: collect section IDs
+    # ========== Process input files ==========
+    # First pass: collect section IDs for internal link rewriting
     section_ids = {input_file.stem.lower() for input_file in input_files}
 
-    # Process each markdown file
+    # Convert each input file to HTML
     converted_sections = []
     extracted_title = None
 
@@ -204,13 +198,14 @@ def build_documentation(
             }
         )
 
+    # ========== Prepare template data ==========
     # Use provided title, or fall back to extracted title, or use default
     final_title = title or extracted_title or "Documentation"
 
     # Generate timestamp
     build_timestamp = datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
 
-    # Load and render template
+    # ========== Load and render template ==========
     sys.stdout.write(f"Reading template from {template_path}\n")
     template_content = template_path.read_text(encoding="utf-8")
 
@@ -218,12 +213,10 @@ def build_documentation(
     html_output = template.render(
         title=final_title,
         sections=converted_sections,
-        inlined_css=inlined_css,
         repo_url=repo_url,
         build_timestamp=build_timestamp,
     )
 
-    # Write output file
     sys.stdout.write(f"Writing output to {output_path}\n")
     output_path.write_text(html_output, encoding="utf-8")
 
