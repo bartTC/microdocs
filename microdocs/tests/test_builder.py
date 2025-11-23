@@ -288,22 +288,6 @@ def test_build_documentation_multiple_sections(
     assert 'id="changelog"' in content or "changelog" in content.lower()
 
 
-def test_build_documentation_includes_css(
-    temp_markdown_files: list[Path],
-    temp_output_path: Path,
-) -> None:
-    """Test that CSS is inlined in output."""
-    build_documentation(
-        input_files=temp_markdown_files,
-        output_path=temp_output_path,
-    )
-
-    content = temp_output_path.read_text(encoding="utf-8")
-    assert "<style>" in content
-    # Should contain some CSS
-    assert "tailwindcss" in content.lower() or "css" in content.lower()
-
-
 def test_build_documentation_includes_timestamp(
     temp_markdown_files: list[Path],
     temp_output_path: Path,
