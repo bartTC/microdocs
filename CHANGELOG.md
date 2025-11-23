@@ -21,6 +21,9 @@
   - Added `scroll-behavior: smooth` for smooth scrolling
   - Configured Tocbot with `headingsOffset: 86` for accurate scroll spy detection
   - Set `scrollSmooth: false` to let browser handle native scrolling behavior
+- **Header title navigation** - Clicking the documentation title now returns to first section and scrolls to top
+  - Uses Alpine.js to set active section and scroll to page top
+  - Provides intuitive way to return to beginning of documentation
 
 ### Changed
 
