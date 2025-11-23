@@ -20,8 +20,9 @@
 - **Template configuration** - Simplified JavaScript initialization
   - Removed JSON config script tag entirely
   - JavaScript now reads section IDs directly from navigation DOM using `data-section-id` attributes
-  - Added `id="main-nav"` and `id="mobile-nav"` to navigation elements for easier querying
-  - Reduced HTML payload and eliminated config redundancy
+  - Consolidated mobile and desktop navigation into single responsive component
+  - Removed duplicate `id="mobile-nav"` - now uses single `id="main-nav"` that adapts
+  - Reduced HTML payload by ~3KB and eliminated code duplication
 
 - **Markdown rendering improvements** - Enhanced markdown processing with GitHub-flavored features
   - Added `mdx-truly-sane-lists` extension for proper nested list rendering with 2-space indentation

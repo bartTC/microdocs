@@ -1,9 +1,7 @@
 // Extract section IDs from navigation data attributes
 function getSectionIds() {
-  const navItems = document.querySelectorAll('#main-nav [data-section-id], #mobile-nav [data-section-id]');
-  return Array.from(navItems)
-    .map(item => item.getAttribute('data-section-id'))
-    .filter((id, index, arr) => id && arr.indexOf(id) === index); // Unique values only
+  const navItems = document.querySelectorAll('#main-nav [data-section-id]');
+  return Array.from(navItems).map(item => item.getAttribute('data-section-id'));
 }
 
 // Microdocs initialization functions
@@ -71,33 +69,7 @@ const MicrodocsApp = {
       }
     });
   },
-
-  initTocForSection(sectionId) {
-    tocbot.destroy();
-    tocbot.init({
-      tocSelector: `.toc-${sectionId}`,
-      contentSelector: `#${sectionId} article`,
-      headingSelector: 'h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]',
-      hasInnerContainers: true,
-      scrollSmooth: false, // Let browser handle smooth scrolling
-      positionFixedSelector: '.sticky',
-      linkClass: 'toc-link',
-      activeLinkClass: 'is-active-link',
-      listClass: 'toc-list',
-      listItemClass: 'toc-list-item',
-      collapseDepth: 6,
-    });
-
-    // Hide "On this page" if no TOC items were generated
-    const tocContainer = document.querySelector(`.toc-${sectionId}`);
-    const nav = tocContainer?.closest('nav');
-    if (nav) {
-      const hasTocItems = tocContainer.querySelector('.toc-list-item');
-      nav.style.display = hasTocItems ? '' : 'none';
-    }
-  },
-
-  // Tocbot is a singleton, it has to be rebuild on every section change.
+  // Tocbot is a singleton, it has to be rebuilt on every section change.
   setupTocbot() {
     window.addEventListener('section-changed', (event) => {
       this.initTocForSection(event.detail);
@@ -124,6 +96,32 @@ const MicrodocsApp = {
       if (isImageRow) p.classList.add('image-row');
     });
   },
+
+  initTocForSection(sectionId) {
+    tocbot.destroy();
+    tocbot.init({
+      tocSelector: `.toc-${sectionId}`,
+      contentSelector: `#${sectionId} article`,
+      headingSelector: 'h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]',
+      hasInnerContainers: true,
+      scrollSmooth: false, // Let browser handle smooth scrolling
+      positionFixedSelector: '.sticky',
+      linkClass: 'toc-link',
+      activeLinkClass: 'is-active-link',
+      listClass: 'toc-list',
+      listItemClass: 'toc-list-item',
+      collapseDepth: 6,
+    });
+
+    // Hide "On this page" if no TOC items were generated
+    const tocContainer = document.querySelector(`.toc-${sectionId}`);
+    const nav = tocContainer?.closest('nav');
+    if (nav) {
+      const hasTocItems = tocContainer.querySelector('.toc-list-item');
+      nav.style.display = hasTocItems ? '' : 'none';
+    }
+  },
+
 };
 
 // Expose to global scope for Alpine.js
