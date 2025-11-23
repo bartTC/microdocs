@@ -34,11 +34,11 @@ classifiers = [
 ]
 requires-python = ">=3.11"
 dependencies = [
-    "jinja2>=3.1.6",
-    "markdown>=3.10",
-    "mdx-truly-sane-lists>=1.3",
-    "pymdown-extensions>=10.0",
-    "typer>=0.20.0",
+    "jinja2",
+    "markdown",
+    "mdx-truly-sane-lists",
+    "pymdown-extensions",
+    "typer",
 ]
 
 [project.urls]
