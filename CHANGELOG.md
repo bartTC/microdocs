@@ -13,6 +13,13 @@
   - Smooth transition animations for menu toggle
   - Includes action buttons (theme toggle, repo link) in mobile view
   - Maintains clean row layout for desktop view
+- **Repository Icons** - Added specific icons for GitHub, GitLab, and Bitbucket
+  - Automatically detects repository provider from URL
+  - Falls back to generic code icon for other providers
+  - Uses high-quality SVG icons from Simple Icons
+- **TOC Styling** - Refactored Table of Contents CSS
+  - Uses CSS variables for indentation (`--toc-indent-step`)
+  - Simplifies nested list styling with `calc()`
 - **Playwright testing infrastructure** for end-to-end template testing
   - `playwright/build-test-template.js` - Script to build and test templates with real content
   - `playwright/fixtures/` - Sample markdown files for testing
