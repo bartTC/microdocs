@@ -8,22 +8,28 @@
   - Allows setting custom footer text instead of automatic build timestamp
   - Example: `microdocs README.md --footer "v1.1 2025-01-01"`
   - Falls back to timestamp if not provided
-
-### Fixed
-
-- **TOC deep linking across sections** - Fixed table of contents links navigating to wrong section
-  - Heading IDs are now prefixed with section name (e.g., `readme-deep-dive`, `guide-deep-dive`)
-  - Prevents TOC links from jumping to identically-named headings in other sections
-  - Added custom `slugify` function to markdown `toc` extension for ID prefixing
-  - Added Playwright test to verify TOC navigation stays within correct section
-- **Sticky header overlap** - Fixed headings appearing under sticky navigation when scrolling via TOC
-  - Added `scroll-padding-top: 86px` to CSS for proper anchor positioning
-  - Added `scroll-behavior: smooth` for smooth scrolling
-  - Configured Tocbot with `headingsOffset: 86` for accurate scroll spy detection
-  - Set `scrollSmooth: false` to let browser handle native scrolling behavior
-- **Header title navigation** - Clicking the documentation title now returns to first section and scrolls to top
-  - Uses Alpine.js to set active section and scroll to page top
-  - Provides intuitive way to return to beginning of documentation
+- **Mobile Navigation** - Added responsive burger menu for mobile devices
+  - Collapsible navigation menu for screens smaller than 640px
+  - Smooth transition animations for menu toggle
+  - Includes action buttons (theme toggle, repo link) in mobile view
+  - Maintains clean row layout for desktop view
+- **Playwright testing infrastructure** for end-to-end template testing
+  - `playwright/build-test-template.js` - Script to build and test templates with real content
+  - `playwright/fixtures/` - Sample markdown files for testing
+  - `playwright/playwright.config.js` - Playwright configuration
+  - Playwright dependencies added to `package.json`
+  - Test results directories added to `.gitignore`
+- **Vite configuration** (`vite.config.js`)
+  - Auto-discovers template directories
+  - Configures single-file builds with viteSingleFile plugin
+  - Removes module attributes from inlined scripts
+  - Minifies output with Terser
+- **Package build configuration** - Excluded development files from PyPI distribution
+  - Excludes: `playwright/`, `templates_src/`, `node_modules/`, config files
+- **Image Row Detection** - Automatically detects and styles paragraphs containing only linked images
+  - Applies `.image-row` class to paragraphs containing only linked images or SVGs
+  - Supports multiple images per link (e.g. for complex badges)
+  - Ensures proper alignment and spacing for badge rows
 
 ### Changed
 
@@ -39,7 +45,6 @@
   - Consolidated mobile and desktop navigation into single responsive component
   - Removed duplicate `id="mobile-nav"` - now uses single `id="main-nav"` that adapts
   - Reduced HTML payload by ~3KB and eliminated code duplication
-
 - **Markdown rendering improvements** - Enhanced markdown processing with GitHub-flavored features
   - Added `mdx-truly-sane-lists` extension for proper nested list rendering with 2-space indentation
   - Lists now render with correct `<ul>` nesting instead of flattening all items into a single list
@@ -81,25 +86,21 @@
   - Updated CLAUDE.md with Vite workflow instructions
   - Updated README.md with simplified template usage section
 
-### Added
+### Fixed
 
-- **Playwright testing infrastructure** for end-to-end template testing
-  - `playwright/build-test-template.js` - Script to build and test templates with real content
-  - `playwright/fixtures/` - Sample markdown files for testing
-  - `playwright/playwright.config.js` - Playwright configuration
-  - Playwright dependencies added to `package.json`
-  - Test results directories added to `.gitignore`
-- **Vite configuration** (`vite.config.js`)
-  - Auto-discovers template directories
-  - Configures single-file builds with viteSingleFile plugin
-  - Removes module attributes from inlined scripts
-  - Minifies output with Terser
-- **Package build configuration** - Excluded development files from PyPI distribution
-  - Excludes: `playwright/`, `templates_src/`, `node_modules/`, config files
-- **Image Row Detection** - Automatically detects and styles paragraphs containing only linked images
-  - Applies `.image-row` class to paragraphs containing only linked images or SVGs
-  - Supports multiple images per link (e.g. for complex badges)
-  - Ensures proper alignment and spacing for badge rows
+- **TOC deep linking across sections** - Fixed table of contents links navigating to wrong section
+  - Heading IDs are now prefixed with section name (e.g., `readme-deep-dive`, `guide-deep-dive`)
+  - Prevents TOC links from jumping to identically-named headings in other sections
+  - Added custom `slugify` function to markdown `toc` extension for ID prefixing
+  - Added Playwright test to verify TOC navigation stays within correct section
+- **Sticky header overlap** - Fixed headings appearing under sticky navigation when scrolling via TOC
+  - Added `scroll-padding-top: 86px` to CSS for proper anchor positioning
+  - Added `scroll-behavior: smooth` for smooth scrolling
+  - Configured Tocbot with `headingsOffset: 86` for accurate scroll spy detection
+  - Set `scrollSmooth: false` to let browser handle native scrolling behavior
+- **Header title navigation** - Clicking the documentation title now returns to first section and scrolls to top
+  - Uses Alpine.js to set active section and scroll to page top
+  - Provides intuitive way to return to beginning of documentation
 
 ### Removed
 

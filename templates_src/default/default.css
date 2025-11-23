@@ -29,7 +29,7 @@ html {
 .image-row {
   @apply flex flex-wrap gap-1.5 align-middle;
 
-  a > img {
+  a>img {
     @apply m-0;
   }
 }
@@ -50,17 +50,24 @@ html {
     @apply no-underline text-purple-600 dark:text-purple-400;
   }
 
-  a:hover, a:active {
+  a:hover,
+  a:active {
     @apply underline;
   }
 
   /* Headings use custom font */
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-heading font-semibold;
   }
 
-  h1, h2 {
+  h1,
+  h2 {
     @apply pb-2 border-b-1 border-b-gray-300 dark:border-b-gray-700;
   }
 
@@ -74,15 +81,7 @@ html {
  * Tocbot TOC styling
  * -------------------------------------------------------------------------- */
 .js-toc .toc-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  font-size: 0.875rem;
-  line-height: 1.25;
-}
-
-.js-toc .toc-link {
-  @apply no-underline block py-1 pl-3;
+  @apply .js-toc .toc-link @apply no-underline { } block m-0 p-0 py-1 pl-3 text-sm leading-5 list-none;
   @apply text-gray-600 dark:text-gray-400;
   @apply border-l-2 border-gray-300 dark:border-gray-700;
   @apply duration-150 transition-colors;
