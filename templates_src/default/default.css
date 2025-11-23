@@ -80,15 +80,15 @@ html {
 /* -----------------------------------------------------------------------------
  * Tocbot TOC styling
  * -------------------------------------------------------------------------- */
-.js-toc .toc-list {
-  @apply .js-toc .toc-link @apply no-underline { } block m-0 p-0 py-1 pl-3 text-sm leading-5 list-none;
+.js-toc .toc-link {
+  @apply no-underline block m-0 p-0 py-1 pl-3 text-sm leading-5 list-none;
   @apply text-gray-600 dark:text-gray-400;
   @apply border-l-2 border-gray-300 dark:border-gray-700;
   @apply duration-150 transition-colors;
 }
 
 .js-toc .toc-link:hover {
-  @apply text-gray-900 dark:text-gray-50;
+  @apply underline text-gray-900 dark:text-gray-50;
 }
 
 .js-toc .toc-link.is-active-link {
