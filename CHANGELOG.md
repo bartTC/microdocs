@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- **Mobile action button labels** - Improved mobile navigation UX
+  - Theme toggle now displays "Toggle theme" label on mobile
+  - Repository links show platform-specific labels (GitHub, GitLab, Bitbucket, or Repository)
+  - Labels hidden on desktop (sm:hidden) to maintain clean icon-only design
+  - Increased gap between action buttons on mobile (gap-6) for better tap target spacing
+  - Desktop maintains compact gap-3 spacing
+
 ## Version 1.2.1 (2025-11-23)
 
 ### Fixed
