@@ -1,11 +1,33 @@
-// Read configuration from JSON script tag
-const configScript = document.getElementById('microdocs-config');
-const config = configScript ? JSON.parse(configScript.textContent) : { sectionIds: [], initialSection: '' };
+// Extract section IDs from navigation data attributes
+function getSectionIds() {
+  const navItems = document.querySelectorAll('#main-nav [data-section-id], #mobile-nav [data-section-id]');
+  return Array.from(navItems)
+    .map(item => item.getAttribute('data-section-id'))
+    .filter((id, index, arr) => id && arr.indexOf(id) === index); // Unique values only
+}
 
 // Microdocs initialization functions
 const MicrodocsApp = {
-  sectionIds: config.sectionIds,
-  initialSection: config.initialSection,
+
+  init(alpineContext) {
+    this.setupSectionWatcher(alpineContext.$watch, alpineContext.activeSection);
+    this.setupThemeWatcher(alpineContext.$watch, alpineContext.theme);
+    this.setupHashLinkHandler(
+      () => alpineContext.activeSection,
+      (section) => { alpineContext.activeSection = section; }
+    );
+    this.setupTocbot();
+    this.setupImageRows();
+  },
+
+  get sectionIds() {
+    return getSectionIds();
+  },
+
+  get initialSection() {
+    const ids = getSectionIds();
+    return ids[0] || '';
+  },
 
   getInitialTheme() {
     return localStorage.getItem('theme') ||
@@ -57,9 +79,7 @@ const MicrodocsApp = {
       contentSelector: `#${sectionId} article`,
       headingSelector: 'h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]',
       hasInnerContainers: true,
-      scrollSmooth: true,
-      scrollSmoothDuration: 200,
-      headingsOffset: 100,
+      scrollSmooth: false, // Let browser handle smooth scrolling
       positionFixedSelector: '.sticky',
       linkClass: 'toc-link',
       activeLinkClass: 'is-active-link',
@@ -77,71 +97,34 @@ const MicrodocsApp = {
     }
   },
 
+  // Tocbot is a singleton, it has to be rebuild on every section change.
   setupTocbot() {
-    // Listen for section changes
     window.addEventListener('section-changed', (event) => {
       this.initTocForSection(event.detail);
     });
 
-    // Initial load
     this.initTocForSection(this.initialSection);
   },
 
   setupImageRows() {
-    const paragraphs = document.querySelectorAll('p');
-    paragraphs.forEach(p => {
-      // Check if p contains only whitespace text nodes
-      const hasText = Array.from(p.childNodes).some(node =>
-        node.nodeType === Node.TEXT_NODE && node.textContent.trim().length > 0
-      );
-      if (hasText) return;
+    // Find paragraphs containing only linked images (typically badges)
+    document.querySelectorAll('p').forEach(p => {
+      // Skip if paragraph has text content
+      if (p.textContent.trim()) return;
 
-      // Check if all children are 'a' tags
-      const children = Array.from(p.children);
-      if (children.length === 0) return;
-
-      const allLinks = children.every(child => child.tagName.toLowerCase() === 'a');
-      if (!allLinks) return;
-
-      // Check if all 'a' tags contain only 'img' or 'svg'
-      const validLinks = children.every(link => {
-        // Check if link contains text
-        const linkHasText = Array.from(link.childNodes).some(node =>
-          node.nodeType === Node.TEXT_NODE && node.textContent.trim().length > 0
+      // Check if all children are <a> tags containing only <img> or <svg>
+      const links = Array.from(p.children);
+      const isImageRow = links.length > 0 &&
+        links.every(link => link.tagName === 'A' &&
+          Array.from(link.children).every(child =>
+            child.tagName === 'IMG' || child.tagName === 'SVG'
+          )
         );
-        if (linkHasText) return false;
 
-        const linkChildren = Array.from(link.children);
-        if (linkChildren.length === 0) return false;
-
-        // All children must be img or svg
-        return linkChildren.every(child => {
-            const tagName = child.tagName.toLowerCase();
-            return tagName === 'img' || tagName === 'svg';
-        });
-      });
-
-      if (validLinks) {
-        p.classList.add('image-row');
-      }
+      if (isImageRow) p.classList.add('image-row');
     });
   },
-
-  init(alpineContext) {
-    this.setupSectionWatcher(alpineContext.$watch, alpineContext.activeSection);
-    this.setupThemeWatcher(alpineContext.$watch, alpineContext.theme);
-    this.setupHashLinkHandler(
-      () => alpineContext.activeSection,
-      (section) => { alpineContext.activeSection = section; }
-    );
-    this.setupImageRows();
-  }
 };
 
 // Expose to global scope for Alpine.js
 window.MicrodocsApp = MicrodocsApp;
-
-document.addEventListener('DOMContentLoaded', () => {
-  MicrodocsApp.setupTocbot();
-  MicrodocsApp.setupImageRows();
-});

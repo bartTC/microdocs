@@ -20,7 +20,8 @@
  * -------------------------------------------------------------------------- */
 
 html {
-  @apply scroll-pt-20 scroll-smooth;
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px; /* Match TOC sidebar top-24 (6rem) */
 }
 
 

@@ -13,12 +13,6 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tocbot@4.28.2/dist/tocbot.min.js"></script>
     <script type="module" src="./default.js"></script>
-    <script id="microdocs-config" type="application/json">
-      {{ {
-        "sectionIds": sections | map(attribute='id') | list,
-        "initialSection": sections[0].id
-      } | tojson }}
-    </script>
     <link rel="stylesheet" href="./default.css">
   </head>
   <body
@@ -37,10 +31,10 @@
           </h1>
 
           <!-- Navigation -->
-          <nav class="flex-1">
+          <nav id="main-nav" class="flex-1">
             <ul class="flex gap-1">
               {% for section in sections %}
-                <li>
+                <li data-section-id="{{ section.id }}">
                   <button
                     @click="activeSection = '{{ section.id }}'"
                     :class="activeSection === '{{ section.id }}' ? 'font-semibold text-gray-900 dark:text-gray-50' : 'text-gray-600 dark:text-gray-400'"
@@ -107,10 +101,10 @@
           </div>
 
           <!-- Navigation Tabs (Scrollable) -->
-          <nav class="overflow-x-auto scrollbar-hide -mx-4 px-4">
+          <nav id="mobile-nav" class="overflow-x-auto scrollbar-hide -mx-4 px-4">
             <ul class="flex gap-1">
               {% for section in sections %}
-                <li class="shrink-0">
+                <li class="shrink-0" data-section-id="{{ section.id }}">
                   <button
                     @click="activeSection = '{{ section.id }}'"
                     :class="activeSection === '{{ section.id }}' ? 'font-semibold text-gray-900 dark:text-gray-50 bg-gray-300/20 dark:bg-gray-700/20' : 'text-gray-600 dark:text-gray-400'"

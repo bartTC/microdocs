@@ -17,6 +17,11 @@
   - Monospace: IBM Plex Mono (professional code font)
   - Improved heading borders and link hover states
   - Enhanced code block styling with better contrast
+- **Template configuration** - Simplified JavaScript initialization
+  - Removed JSON config script tag entirely
+  - JavaScript now reads section IDs directly from navigation DOM using `data-section-id` attributes
+  - Added `id="main-nav"` and `id="mobile-nav"` to navigation elements for easier querying
+  - Reduced HTML payload and eliminated config redundancy
 
 - **Markdown rendering improvements** - Enhanced markdown processing with GitHub-flavored features
   - Added `mdx-truly-sane-lists` extension for proper nested list rendering with 2-space indentation
