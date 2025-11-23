@@ -11,41 +11,21 @@
       rel="stylesheet"
     />
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <style>
-      {{ inlined_css|safe }}
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/tocbot@4.28.2/dist/tocbot.min.js"></script>
+    <script type="module" src="./default.js"></script>
+    <script id="microdocs-config" type="application/json">
+      {{ {
+        "sectionIds": sections | map(attribute='id') | list,
+        "initialSection": sections[0].id
+      } | tojson }}
+    </script>
+    <link rel="stylesheet" href="./default.css">
   </head>
   <body
     class="font-sans text-doc-text antialiased bg-doc-bg"
-    x-data="{
-            activeSection: '{{ sections[0].id }}',
-            theme: localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-            }"
-    x-init="
-            $watch('activeSection', (section) => {
-            window.scrollTo(0, 0);
-            window.dispatchEvent(new CustomEvent('section-changed', { detail: section }));
-            });
-            $watch('theme', value => {
-            localStorage.setItem('theme', value);
-            document.documentElement.setAttribute('data-theme', value);
-            });
-            document.documentElement.setAttribute('data-theme', theme);
-
-            // Monitor hash link clicks and update activeSection
-            document.addEventListener('click', (e) => {
-            const link = e.target.closest('a[href^=\'#\']');
-            if (link) {
-            const hash = link.getAttribute('href');
-            const sectionId = hash.substring(1);
-            const sectionIds = [{% for section in sections %}'{{ section.id }}'{% if not loop.last %}, {% endif %}{% endfor %}];
-            if (sectionIds.includes(sectionId)) {
-            e.preventDefault();
-            activeSection = sectionId;
-            }
-            }
-            });
-           ">
+    x-data="MicrodocsApp.getInitialData()"
+    x-init="MicrodocsApp.init($data)"
+  >
     <!-- Header -->
     <header class="z-50 sticky top-0 bg-doc-bg border-b border-doc-border">
       <div class="max-w-5xl mx-auto px-4 py-3 sm:px-6 sm:py-4">
@@ -193,48 +173,5 @@
         </div>
       </div>
     </footer>
-
-    <!-- Tocbot JS -->
-    <script src="https://cdn.jsdelivr.net/npm/tocbot@4.28.2/dist/tocbot.min.js"></script>
-    <script>
-      // Initialize tocbot for the active section
-      document.addEventListener('DOMContentLoaded', () => {
-        function initTocForSection(sectionId) {
-          tocbot.destroy();
-          tocbot.init({
-            tocSelector: `.toc-${sectionId}`,
-            contentSelector: `#${sectionId} article`,
-            headingSelector: 'h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]',
-            hasInnerContainers: true,
-            scrollSmooth: true,
-            scrollSmoothDuration: 200,
-            headingsOffset: 100,
-            positionFixedSelector: '.sticky',
-            linkClass: 'toc-link',
-            activeLinkClass: 'is-active-link',
-            listClass: 'toc-list',
-            listItemClass: 'toc-list-item',
-            collapseDepth: 6,
-          });
-
-          // Hide "On this page" if no TOC items were generated
-          const tocContainer = document.querySelector(`.toc-${sectionId}`);
-          const nav = tocContainer?.closest('nav');
-          if (nav) {
-            const hasTocItems = tocContainer.querySelector('.toc-list-item');
-            nav.style.display = hasTocItems ? '' : 'none';
-          }
-        }
-
-        // Listen for section changes
-        window.addEventListener('section-changed', (event) => {
-          initTocForSection(event.detail);
-        });
-
-        // Initial load
-        const initialSection = '{{ sections[0].id }}';
-        initTocForSection(initialSection);
-      });
-    </script>
   </body>
 </html>

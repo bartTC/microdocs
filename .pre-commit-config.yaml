@@ -30,12 +30,6 @@ repos:
         args: [--fix]
       - id: ruff-format  # Fast Python formatter (replaces black)
 
-  # Django template formatting
-  - repo: https://github.com/rtts/djhtml
-    rev: '3.0.10'
-    hooks:
-      - id: djhtml  # Indents and formats Django HTML templates
-
   # Tailwind CSS class sorting
   - repo: https://github.com/bartTC/tailwhip
     rev: v0.11

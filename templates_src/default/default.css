@@ -38,10 +38,10 @@
 }
 
 /* Show linked images side by side (typically badges) */
-a:has(img):has(+ a img),
-a:has(img) + a:has(img) {
-	display: inline-flex;
+.image-row {
+	display: flex;
 	vertical-align: middle;
+  gap: 0.4em;
 }
 
 /* Smooth scroll behavior with padding for fixed header */
