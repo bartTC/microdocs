@@ -12,7 +12,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: 'html',
+  reporter: 'list',
   use: {
     baseURL: `file://${resolve(__dirname, '../playwright-fixtures')}/`,
     trace: 'on-first-retry',
