@@ -81,7 +81,7 @@ html {
  * Tocbot TOC styling
  * -------------------------------------------------------------------------- */
 .js-toc .toc-link {
-  @apply no-underline block m-0 p-0 py-1 pl-3 text-sm leading-5 list-none;
+  @apply no-underline block m-0 p-0 py-1 text-sm leading-5 list-none;
   @apply text-gray-600 dark:text-gray-400;
   @apply border-l-2 border-gray-300 dark:border-gray-700;
   @apply duration-150 transition-colors;
@@ -97,22 +97,30 @@ html {
 }
 
 /* Nested TOC items - indent text but keep borders aligned */
+.js-toc {
+  --toc-indent-step: 0.75rem;
+}
+
+.js-toc .toc-link {
+  padding-left: var(--toc-indent-step);
+}
+
 .js-toc .toc-list .toc-list .toc-link {
-  padding-left: 1.5rem;
+  padding-left: calc(var(--toc-indent-step) * 2);
 }
 
 .js-toc .toc-list .toc-list .toc-list .toc-link {
-  padding-left: 2.25rem;
+  padding-left: calc(var(--toc-indent-step) * 3);
 }
 
 .js-toc .toc-list .toc-list .toc-list .toc-list .toc-link {
-  padding-left: 3rem;
+  padding-left: calc(var(--toc-indent-step) * 4);
 }
 
 .js-toc .toc-list .toc-list .toc-list .toc-list .toc-list .toc-link {
-  padding-left: 3.75rem;
+  padding-left: calc(var(--toc-indent-step) * 5);
 }
 
 .js-toc .toc-list .toc-list .toc-list .toc-list .toc-list .toc-list .toc-link {
-  padding-left: 4.5rem;
+  padding-left: calc(var(--toc-indent-step) * 6);
 }
