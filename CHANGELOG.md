@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+
+- **Alpine.js syntax error in mobile navigation** - Fixed malformed `:class` binding
+  - Corrected invalid syntax to proper ternary operator: `mobileMenuOpen ? 'flex' : 'hidden sm:flex'`
+  - Added tailwhip `skip_expressions` configuration to prevent formatting ternary operators
+  - Added Playwright tests for burger menu toggle and auto-close functionality
+  - Changed Playwright reporter to 'list' to prevent background server processes
+
 ## Version 1.2.0 (2025-11-23)
 
 ### Added
