@@ -1,5 +1,57 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- **Template build system** - Complete redesign using Vite
+  - Templates are now built from source files in `templates_src/` to single-file outputs in `microdocs/templates/`
+  - Vite automatically discovers and builds all template directories
+  - CSS (Tailwind) and JavaScript are inlined into single HTML files
+  - Development server with hot-reloading: `npm run dev`
+  - Production builds: `npm run build`
+  - Preview built templates: `npm run preview`
+  - Source files (`templates_src/`) excluded from PyPI package distribution
+- **Template CLI** - Enhanced template selection
+  - `--template` now accepts both template names (e.g., `default`) and file paths
+  - Template names automatically resolve to built-in templates
+  - Available templates listed in help text
+  - Example: `microdocs README.md -t default` or `microdocs README.md -t /path/to/custom.html`
+- **Template structure** - Reorganized for better maintainability
+  - Source: `templates_src/{name}/{name}.html`, `{name}.css`, `{name}.js`
+  - Output: `microdocs/templates/{name}/{name}.html` (single file)
+  - Removed legacy CSS file inlining (`inlined_css` template variable removed)
+  - Builder no longer looks for companion `.css` files
+- **Pre-commit hooks** - Removed djhtml hook (Django template formatter) as it's no longer needed
+- **Documentation** - Comprehensive template development guide
+  - New `templates_src/TEMPLATES.md` with complete guide for creating custom templates
+  - Updated CLAUDE.md with Vite workflow instructions
+  - Updated README.md with simplified template usage section
+
+### Added
+
+- **Playwright testing infrastructure** for end-to-end template testing
+  - `playwright/build-test-template.js` - Script to build and test templates with real content
+  - `playwright/fixtures/` - Sample markdown files for testing
+  - `playwright/playwright.config.js` - Playwright configuration
+  - Playwright dependencies added to `package.json`
+  - Test results directories added to `.gitignore`
+- **Vite configuration** (`vite.config.js`)
+  - Auto-discovers template directories
+  - Configures single-file builds with viteSingleFile plugin
+  - Removes module attributes from inlined scripts
+  - Minifies output with Terser
+- **Package build configuration** - Excluded development files from PyPI distribution
+  - Excludes: `playwright/`, `templates_src/`, `node_modules/`, config files
+
+### Removed
+
+- **Template tests** - Removed `microdocs/tests/test_templates.py`
+  - 16 tests for template variable presence and CSS inlining removed
+  - Template testing now handled by Playwright for more realistic E2E testing
+- **Legacy template file** - Removed `microdocs/templates/default.css`
+  - CSS now inlined during Vite build process
+
 ## Version 1.1.0 (2025-01-13)
 
 ### Added
