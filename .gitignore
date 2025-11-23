@@ -62,6 +62,9 @@ htmlcov/
 coverage.xml
 *.cover
 .hypothesis/
+playwright-fixtures/
+playwright-report/
+test-results/
 
 # Type checking
 .mypy_cache/

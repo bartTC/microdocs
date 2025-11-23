@@ -60,6 +60,17 @@ microdocs = "microdocs:main"
 [tool.hatch.build.targets.wheel]
 packages = ["microdocs"]
 
+[tool.hatch.build]
+exclude = [
+    "playwright/",
+    "templates_src/",
+    "node_modules/",
+    "*.config.js",
+    "package.json",
+    "package-lock.json",
+    "vite.config.js",
+]
+
 [tool.uv]
 package = true
 
