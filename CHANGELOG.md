@@ -1,14 +1,32 @@
 # Changelog
 
-## Unreleased
+## Version 1.2.1 (2025-11-23)
 
 ### Fixed
 
 - **Alpine.js syntax error in mobile navigation** - Fixed malformed `:class` binding
   - Corrected invalid syntax to proper ternary operator: `mobileMenuOpen ? 'flex' : 'hidden sm:flex'`
   - Added tailwhip `skip_expressions` configuration to prevent formatting ternary operators
-  - Added Playwright tests for burger menu toggle and auto-close functionality
   - Changed Playwright reporter to 'list' to prevent background server processes
+
+### Added
+
+- **Comprehensive Playwright tests for burger menu** - Added 4 new tests for mobile navigation
+  - Desktop: burger hidden, navigation visible by default
+  - Mobile: burger button visible
+  - Mobile: menu toggles on/off with burger clicks
+  - Mobile: menu closes after section selection, active state persists
+  - All tests verify correct element visibility and state management across viewport sizes
+
+### Deployment
+
+```bash
+# Using uv (recommended)
+uvx microdocs@1.2.1 README.md CHANGELOG.md
+
+# Using pip
+pip install --upgrade microdocs
+```
 
 ## Version 1.2.0 (2025-11-23)
 
