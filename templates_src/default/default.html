@@ -53,7 +53,7 @@
           <!-- Navigation & Actions Container -->
           <div
             class="flex flex-col gap-4 pt-4 pb-2 sm:flex-1 sm:flex-row sm:gap-8 sm:items-center sm:justify-between sm:pt-0 sm:pb-0"
-            :class="'flex' 'hidden ? mobileMenuOpen sm:flex' :"
+            :class="mobileMenuOpen ? 'flex' : 'hidden sm:flex'"
           >
             <!-- Navigation -->
             <nav id="main-nav" class="flex-1">
