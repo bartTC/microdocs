@@ -55,6 +55,17 @@ html {
     @apply underline;
   }
 
+  /* Code, but not pre > code */
+  code:not(pre>*) {
+    @apply inline-block px-1 py-0.5 font-mono text-gray-800 bg-gray-50 rounded-md border-1 border-gray-200 dark:text-gray-300 dark:bg-gray-800 dark:border-gray-700;
+  }
+
+  /* Remove backticks from code blocks */
+  code::before,
+  code::after {
+    content: "";
+  }
+
   /* Headings use custom font */
 
   h1,
