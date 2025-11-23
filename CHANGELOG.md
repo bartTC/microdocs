@@ -11,6 +11,13 @@
 
 ### Changed
 
+- **Template typography** - Updated default template fonts
+  - Sans-serif: Inter (modern, highly readable)
+  - Heading: Zilla Slab (bold, friendly slab serif)
+  - Monospace: IBM Plex Mono (professional code font)
+  - Improved heading borders and link hover states
+  - Enhanced code block styling with better contrast
+
 - **Markdown rendering improvements** - Enhanced markdown processing with GitHub-flavored features
   - Added `mdx-truly-sane-lists` extension for proper nested list rendering with 2-space indentation
   - Lists now render with correct `<ul>` nesting instead of flattening all items into a single list

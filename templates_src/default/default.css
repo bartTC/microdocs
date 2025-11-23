@@ -10,8 +10,8 @@
  * -------------------------------------------------------------------------- */
 
 @theme {
-  --font-sans: Roboto, system-ui, sans-serif;
-  --font-heading: "Roboto Slab", serif;
+  --font-sans: "Satoshi", "Inter", sans-serif;
+  --font-heading: "Zilla Slab", serif;
   --font-mono: "IBM Plex Mono", monospace;
 }
 
@@ -56,7 +56,7 @@ html {
   /* Headings use custom font */
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading;
+    @apply font-heading font-semibold;
   }
 
   h1, h2 {
