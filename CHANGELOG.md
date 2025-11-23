@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## Version 1.2.0 (2025-11-23)
 
 ### Added
 
@@ -116,6 +116,16 @@
   - Template testing now handled by Playwright for more realistic E2E testing
 - **Legacy template file** - Removed `microdocs/templates/default.css`
   - CSS now inlined during Vite build process
+
+### Deployment
+
+```bash
+# Using uv (recommended)
+uvx microdocs@1.2 README.md CHANGELOG.md
+
+# Using pip
+pip install --upgrade microdocs
+```
 
 ## Version 1.1.0 (2025-01-13)
 
